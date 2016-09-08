@@ -1,0 +1,40 @@
+<div ng-controller="ProjectsController" data-ng-init="init()">
+    <div class="container">
+        <div class="row row-centered">
+            <h4 class="col-xs-12">Select project to change</h4>
+            <div class="col-xs-12">
+                <form role="form">
+                    <div class="form-group">
+                        <div>
+                            <table id="ProjectsTable" class="table table-bordered">
+                                <thead>
+                                <tr class="bg-info">
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Is Billable</th>
+                                    <th>Is Active</th>
+                                    <th>Created</th>
+                                </tr>
+                                </thead>
+                                <tbody ng-repeat="project in projects">
+                                <tr>
+                                    <td>{{project.title}}</td>
+                                    <td>{{project.description}}</td>
+                                    <td>{{project.start_date | date:'medium'}}</td>
+                                    <td>{{project.end_date | date:'medium'}}</td>
+                                    <td>{{project.is_billable}}</td>
+                                    <td>{{project.is_active}}</td>
+                                    <td>{{project.created | date:'medium'}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div>{{projectsTotal}} projects</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

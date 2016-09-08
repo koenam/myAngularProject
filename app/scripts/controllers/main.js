@@ -27,7 +27,7 @@ angular.module('myProjectApp')
             function (value) {
                 $rootScope.authenticated = true;
                 $scope.response = value.content;
-                $location.path('/about');
+                $location.path('/projects');
             },
             function (error) {
                 $scope.responseError = error;
