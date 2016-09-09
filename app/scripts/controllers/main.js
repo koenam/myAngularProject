@@ -8,7 +8,8 @@
  * Controller of the myProjectApp
  */
 angular.module('myProjectApp')
-  .controller('MainCtrl', function ($scope, $location,  AuthenticationService) {
+  .controller('MainCtrl',
+  function ($scope, $location,  AuthenticationService, $rootScope) {
     $scope.credentials = {};
 
     // this.awesomeThings = [
@@ -25,12 +26,15 @@ angular.module('myProjectApp')
         AuthenticationService.userAuthentication(requestParameters)
             .then(
             function (value) {
-                $rootScope.authenticated = true;
-                $scope.response = value.content;
+
+                console.log("token-"+value.token);
+                // $rootScope.authKey = value.token;
+                $scope.authToken = value.token;
                 $location.path('/projects');
             },
             function (error) {
                 $scope.responseError = error;
             });
     };
+
   });

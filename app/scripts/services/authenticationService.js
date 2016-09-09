@@ -5,34 +5,33 @@ return ({
   userAuthentication: userAuthentication
 
 });
-function userAuthentication (cred) {
-//http://userservice.staging.tangentmicroservices.com:80/apitokenauth/
-            return $http.post('http://userservice.staging.tangentmicroservices.com:80/apitokenauth/' ,cred).then(handleSuccess, handleError());
-};
-// function userAuthentication (username, password) {
-//
-//   var dataObj =
-//   {"username":username,
-//   "password":password};
-//
-//   var request = $http({
-//     method:"post",
-//     headers: {'Content-Type': 'application/json'},
-//     url:"userservice.staging.tangentmicroservices.com/api-token-auth/",
-//     params:dataObj
-//
-//   });
-//   return(request.then(handleSuccess, handleError))
+// function userAuthentication (cred) {
+// //http://userservice.staging.tangentmicroservices.com:80/apitokenauth/
+//             // return $http.post('http://userservice.staging.tangentmicroservices.com:80/api-token-auth/' ,cred).then(handleSuccess, handleError());
+//             return $http.post('http://userservice.staging.tangentmicroservices.com:80/api-token-auth/' ,cred);
 // };
+function userAuthentication (cred) {
+
+  var dataObj =
+  {"username":cred.username,
+  "password":cred.password};
+
+  var request = $http({
+    method:"post",
+    // headers: {'Content-Type': 'application/json'},
+    url:"http://userservice.staging.tangentmicroservices.com:80/api-token-auth/",
+    data:dataObj
+
+  });
+  return(request.then(handleSuccess, handleError))
+};
 
 function handleSuccess (response){
   return (response.data);
 };
 
 function handleError (response){
-  if(!angular.isObject(response.data) || !response.data.message){
-    return($q.reject("error"));
-  }
+  $scope.responseError = error;
 };
 
 });
