@@ -9,7 +9,6 @@ angular.module('myProjectApp')
         $scope.projectsTotal = 0;
         var key = '71456dbd15de0c0b6d2b4b44e5a92ad94c6def97';
         $scope.listProjects(key);
-        // console.log("yyyyyyyy"+$rootScope.authKey);
     };
 
 $scope.listProjects = function (key){
@@ -17,7 +16,6 @@ $scope.listProjects = function (key){
       .then(
       function (value) {
           $scope.projects = value;
-          // $location.path('/projects');
       },
       function (error) {
           $scope.responseError = error;

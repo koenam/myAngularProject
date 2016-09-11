@@ -1,10 +1,8 @@
+'use strict';
 angular.module('myProjectApp').service('AuthenticationService',
-   function ($http, $q, $rootScope, $cookies, ServiceEndPoint) {
+   function ($http) {
 
-return ({
-  userAuthentication: userAuthentication
 
-});
 // function userAuthentication (cred) {
 // //http://userservice.staging.tangentmicroservices.com:80/apitokenauth/
 //             // return $http.post('http://userservice.staging.tangentmicroservices.com:80/api-token-auth/' ,cred).then(handleSuccess, handleError());
@@ -18,20 +16,27 @@ function userAuthentication (cred) {
 
   var request = $http({
     method:"post",
-    // headers: {'Content-Type': 'application/json'},
     url:"http://userservice.staging.tangentmicroservices.com:80/api-token-auth/",
     data:dataObj
 
   });
-  return(request.then(handleSuccess, handleError))
-};
+  return(request.then(handleSuccess, handleError));
+}
+
 
 function handleSuccess (response){
   return (response.data);
-};
+}
 
 function handleError (response){
+  var error = response.data.non_field_errors[0];
   $scope.responseError = error;
-};
+}
+
+
+return ({
+  userAuthentication: userAuthentication
+
+});
 
 });

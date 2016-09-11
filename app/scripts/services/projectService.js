@@ -1,14 +1,13 @@
+'use strict';
+
 angular.module('myProjectApp').service('ProjectService',
-   function ($http, $q, $rootScope, $cookies, ServiceEndPoint) {
+   function ($http) {
 
-return ({
-  getProjects: getProjects
-
-});
 function getProjects (key) {
             var config = {headers: {
                        'Authorization': key,
                        'Content-Type': 'application/json'
+                      //  'Access-Control-Allow-Origin': *
                    }
                };
 
@@ -18,16 +17,20 @@ function getProjects (key) {
                  url:"http://projectservice.staging.tangentmicroservices.com:80/api/v1/projects/"
                });
 // $http.get('http://projectservice.staging.tangentmicroservices.com:80/api/v1/projects/', config);
-
-            return(request.then(handleSuccess, handleError))
-};
+            return(request.then(handleSuccess, handleError));
+}
 
 function handleSuccess (response){
   return (response.data);
-};
+}
 
 function handleError (response){
-  $scope.responseError = error;
-};
+  $scope.responseError = response;
+}
+
+return ({
+  getProjects: getProjects
+
+});
 
 });

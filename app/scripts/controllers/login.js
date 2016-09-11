@@ -8,8 +8,8 @@
  * Controller of the myProjectApp
  */
 angular.module('myProjectApp')
-  .controller('MainCtrl',
-  function ($scope, $location,  AuthenticationService, $rootScope) {
+  .controller('LoginController',
+  function ($scope, $location,  AuthenticationService, ApplicationCacheFactory) {
     $scope.credentials = {};
 
     // this.awesomeThings = [
@@ -27,8 +27,8 @@ angular.module('myProjectApp')
             .then(
             function (value) {
 
-                console.log("token-"+value.token);
-                // $rootScope.authKey = value.token;
+                ApplicationCacheFactory.put('authkey',value.token);
+                console.log("authkey"+ApplicationCacheFactory.get('authkey'));
                 $scope.authToken = value.token;
                 $location.path('/projects');
             },
