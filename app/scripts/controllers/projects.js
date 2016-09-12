@@ -2,12 +2,15 @@
 
 angular.module('myProjectApp')
   .controller('ProjectsController',
-  function ($scope, $location, $rootScope, ProjectService) {
+  function ($scope, $location, $rootScope, ProjectService, ApplicationCacheFactory) {
 
     $scope.init = function () {
-        // $scope.projects = undefined;
-        $scope.projectsTotal = 0;
-        var key = '71456dbd15de0c0b6d2b4b44e5a92ad94c6def97';
+        var key = ApplicationCacheFactory.get('authkey');
+        $scope.actions = [
+          {name: 'add'},
+          {name: 'update'},
+          {name: 'delete'}
+        ];
         $scope.listProjects(key);
     };
 
@@ -16,9 +19,22 @@ $scope.listProjects = function (key){
       .then(
       function (value) {
           $scope.projects = value;
+          $scope.projectsTotal = value.length;
       },
       function (error) {
           $scope.responseError = error;
       });
-};
+      };
+
+  $scope.getAction = function (actionName){
+    if(actionName === 'update'){
+
+    }else if(actionName === 'delete'){
+
+
+    }else if(actionName === 'add'){
+
+    }
+
+  };
   });

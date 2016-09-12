@@ -6,9 +6,23 @@
                 <form role="form">
                     <div class="form-group">
                         <div>
+                          <div class="col-xs-12 input-group">
+                          <div class="col-xs-1 form-inline">Action: </div>
+                          <div class="col-xs-3">
+                          <select  class="form-control" ng-model="action" ng-options="actions.name for actions in actions"></select>
+                        </div>
+                        <div class="col-xs-2">
+                            <button id="action" type="button" ng-click="getAction(action.name)"
+                                    class="btn btn-primary btn-block">
+                                Go
+                            </button>
+                        </div>
+                        </div>
+                        <div>
                             <table id="ProjectsTable" class="table table-bordered">
                                 <thead>
                                 <tr class="bg-info">
+                                    <th><input type="checkbox" value=""></th>
                                     <th>Title</th>
                                     <th>Description</th>
                                     <th>Start Date</th>
@@ -20,6 +34,7 @@
                                 </thead>
                                 <tbody ng-repeat="project in projects">
                                 <tr>
+                                    <td><input type="checkbox" value=""></td>
                                     <td>{{project.title}}</td>
                                     <td>{{project.description}}</td>
                                     <td>{{project.start_date | date:'medium'}}</td>
@@ -27,6 +42,7 @@
                                     <td>{{project.is_billable}}</td>
                                     <td>{{project.is_active}}</td>
                                     <td>{{project.created | date:'medium'}}</td>
+
                                 </tr>
                                 </tbody>
                             </table>

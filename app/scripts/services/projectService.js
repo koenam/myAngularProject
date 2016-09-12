@@ -4,19 +4,18 @@ angular.module('myProjectApp').service('ProjectService',
    function ($http) {
 
 function getProjects (key) {
-            var config = {headers: {
+            var headers =  {
                        'Authorization': key,
                        'Content-Type': 'application/json'
-                      //  'Access-Control-Allow-Origin': *
-                   }
+
                };
 
                var request = $http({
-                 method:"post",
-                 headers: config,
+                 method:"get",
+                 headers: headers,
                  url:"http://projectservice.staging.tangentmicroservices.com:80/api/v1/projects/"
                });
-// $http.get('http://projectservice.staging.tangentmicroservices.com:80/api/v1/projects/', config);
+
             return(request.then(handleSuccess, handleError));
 }
 

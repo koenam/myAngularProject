@@ -12,12 +12,6 @@ angular.module('myProjectApp')
   function ($scope, $location,  AuthenticationService, ApplicationCacheFactory) {
     $scope.credentials = {};
 
-    // this.awesomeThings = [
-    //   'HTML5 Boilerplate',
-    //   'AngularJS',
-    //   'Karma'
-    // ];
-
     $scope.loginUser = function (credentials) {
         var requestParameters = {
             username: credentials.username,
@@ -28,7 +22,6 @@ angular.module('myProjectApp')
             function (value) {
 
                 ApplicationCacheFactory.put('authkey',value.token);
-                console.log("authkey"+ApplicationCacheFactory.get('authkey'));
                 $scope.authToken = value.token;
                 $location.path('/projects');
             },

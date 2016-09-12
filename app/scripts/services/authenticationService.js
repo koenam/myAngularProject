@@ -2,12 +2,6 @@
 angular.module('myProjectApp').service('AuthenticationService',
    function ($http) {
 
-
-// function userAuthentication (cred) {
-// //http://userservice.staging.tangentmicroservices.com:80/apitokenauth/
-//             // return $http.post('http://userservice.staging.tangentmicroservices.com:80/api-token-auth/' ,cred).then(handleSuccess, handleError());
-//             return $http.post('http://userservice.staging.tangentmicroservices.com:80/api-token-auth/' ,cred);
-// };
 function userAuthentication (cred) {
 
   var dataObj =
