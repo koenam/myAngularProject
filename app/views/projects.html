@@ -6,7 +6,7 @@
                 <form role="form">
                     <div class="form-group">
                         <div>
-                          <div class="col-xs-12 input-group">
+                          <!-- <div class="col-xs-12 input-group">
                           <div class="col-xs-1 form-inline">Action: </div>
                           <div class="col-xs-3">
                           <select  class="form-control" ng-model="action" ng-options="actions.name for actions in actions"></select>
@@ -17,12 +17,12 @@
                                 Go
                             </button>
                         </div>
-                        </div>
+                        </div> -->
                         <div>
                             <table id="ProjectsTable" class="table table-bordered">
                                 <thead>
                                 <tr class="bg-info">
-                                    <th><input type="checkbox" value=""></th>
+                                    <!-- <th><input type="checkbox" value=""></th> -->
                                     <th>Title</th>
                                     <th>Description</th>
                                     <th>Start Date</th>
@@ -30,11 +30,13 @@
                                     <th>Is Billable</th>
                                     <th>Is Active</th>
                                     <th>Created</th>
+                                    <th>Delete</th>
+                                    <!-- <th>Add</th> -->
                                 </tr>
                                 </thead>
                                 <tbody ng-repeat="project in projects">
                                 <tr>
-                                    <td><input type="checkbox" value=""></td>
+                                    <!-- <td><input type="checkbox" value=""></td> -->
                                     <td>{{project.title}}</td>
                                     <td>{{project.description}}</td>
                                     <td>{{project.start_date | date:'medium'}}</td>
@@ -42,6 +44,8 @@
                                     <td>{{project.is_billable}}</td>
                                     <td>{{project.is_active}}</td>
                                     <td>{{project.created | date:'medium'}}</td>
+                                    <td ng-click="deleteProject(project)"><a><i class="glyphicon glyphicon-trash"></i>delete</a></td>
+                                    <!-- <td ng-click="addProject(project)"><a><i class="glyphicon glyphicon-plus"></i>add</a></td> -->
 
                                 </tr>
                                 </tbody>

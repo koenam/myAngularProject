@@ -4,18 +4,33 @@ angular.module('myProjectApp')
   .controller('ProjectsController',
   function ($scope, $location, $rootScope, ProjectService, ApplicationCacheFactory) {
 
+   var authKey;
     $scope.init = function () {
-        var key = ApplicationCacheFactory.get('authkey');
+        authKey = ApplicationCacheFactory.get('authkey');
         $scope.actions = [
           {name: 'add'},
           {name: 'update'},
           {name: 'delete'}
         ];
-        $scope.listProjects(key);
+        $scope.listProjects(authKey);
     };
 
-$scope.listProjects = function (key){
-  ProjectService.getProjects(key)
+    $scope.deleteProject = function (project){
+      $scope.currentIndex = $scope.projects.indexOf(project);
+      ProjectService.removeProject(project.pk, authKey)
+          .then(
+          function (value) {
+            if ($scope.currentIndex > -1) {
+                $scope.projects.splice($scope.currentIndex, 1);
+            }
+          },
+          function (error) {
+              $scope.responseError = error;
+          });
+    };
+
+$scope.listProjects = function (authKey){
+  ProjectService.getProjects(authKey)
       .then(
       function (value) {
           $scope.projects = value;
@@ -37,4 +52,5 @@ $scope.listProjects = function (key){
     }
 
   };
-  });
+
+});
