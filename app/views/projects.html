@@ -31,7 +31,7 @@
                                     <th>Is Active</th>
                                     <th>Created</th>
                                     <th>Delete</th>
-                                    <!-- <th>Add</th> -->
+                                    <th>Edit</th>
                                 </tr>
                                 </thead>
                                 <tbody ng-repeat="project in projects">
@@ -45,12 +45,40 @@
                                     <td>{{project.is_active}}</td>
                                     <td>{{project.created | date:'medium'}}</td>
                                     <td ng-click="deleteProject(project)"><a><i class="glyphicon glyphicon-trash"></i>delete</a></td>
-                                    <!-- <td ng-click="addProject(project)"><a><i class="glyphicon glyphicon-plus"></i>add</a></td> -->
-
+                                    <td ng-click="editProject(project)"><a><i class="glyphicon glyphicon-pencil"></i>edit</a></td>
+                                    <!-- <script type="text/ng-template" id="edit"> -->
+                                    <tr id="edit" ng-show="editing && project.pk === selected.pk">
+                                      <!-- <tr ng-show="editing"> -->
+                                     <td><input type="text" ng-model=project.title></td>
+                                     <td><input type="text" ng-model=project.description></td>
+                                     <td><input type="text" ng-model=project.start_date></td>
+                                    <td><input type="text" ng-model=project.end_date></td>
+                                    <td><input type="text" ng-model=project.is_billable></td>
+                                    <td><input type="text" ng-model=project.is_active></td>
+                                    <td><input type="text" ng-model=project.created></td>
+                                    <td><button type="button" class="btn btn-primary" ng-click="updateProject(project)">Save</button></td>
+                                    <td><button type="button" class="btn btn-danger" ng-click="reset()">Cancel</button></td>
+                                   </tr>
                                 </tr>
                                 </tbody>
+                                <tr id="add" ng-show="adding">
+                                  <td><input type="text" ng-model=project.title></td>
+                                  <td><input type="text" ng-model=project.description></td>
+                                  <td><input type="text" ng-model=project.start_date></td>
+                                 <td><input type="text" ng-model=project.end_date></td>
+                                 <td><input type="text" ng-model=project.is_billable></td>
+                                 <td><input type="text" ng-model=project.is_active></td>
+                                 <td><input type="text" ng-model=project.created></td>
+                                 <td><button type="button" class="btn btn-primary" ng-click="addProject(project)">Save</button></td>
+                                 <td><button type="button" class="btn btn-danger" ng-click="cancel()">Cancel</button></td>
+                                </tr>
                             </table>
                             <div>{{projectsTotal}} projects</div>
+                            <div>
+                                <button id="add" ng-show="!adding" class="btn btn-primary" ng-click="createProject()">
+                                    Add
+                                </button>
+                                <div>
                         </div>
                     </div>
                 </form>

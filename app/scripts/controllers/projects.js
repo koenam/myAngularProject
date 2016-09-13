@@ -12,12 +12,12 @@ angular.module('myProjectApp')
           {name: 'update'},
           {name: 'delete'}
         ];
-        $scope.listProjects(authKey);
+        $scope.listProjects();
     };
 
     $scope.deleteProject = function (project){
       $scope.currentIndex = $scope.projects.indexOf(project);
-      ProjectService.removeProject(project.pk, authKey)
+      ProjectService.removeProject(project.pk)
           .then(
           function (value) {
             if ($scope.currentIndex > -1) {
@@ -30,8 +30,8 @@ angular.module('myProjectApp')
           });
     };
 
-$scope.listProjects = function (authKey){
-  ProjectService.getProjects(authKey)
+$scope.listProjects = function (){
+  ProjectService.getProjects()
       .then(
       function (value) {
           $scope.projects = value;
@@ -40,7 +40,60 @@ $scope.listProjects = function (authKey){
       function (error) {
           $scope.responseError = error;
       });
+    };
+
+    $scope.editProject = function (project){
+      $scope.selected = angular.copy(project);
+      $scope.editing = true;
+    };
+
+    $scope.reset = function () {
+       $scope.selected = {};
+   };
+
+    $scope.updateProject = function (project){
+      ProjectService.updateProject(project)
+      .then(
+        function(value){
+          $scope.projectsTotal = value.length;
+          $scope.editing = false;
+        },
+        function(error){
+          $scope.responseError = error;
+        });
+    };
+
+    $scope.createProject = function (){
+      $scope.adding =true;
       };
+
+      $scope.cancel = function (){
+        $scope.adding =false;
+        };
+
+    $scope.addProject = function (project){
+
+        ProjectService.addProject(project)
+      .then(
+        function(value){
+          $scope.projects.push(project);
+          $scope.projectsTotal = $scope.projects.length;
+          $scope.adding = false;
+
+        },
+        function(error){
+          $scope.responseError = error;
+        });
+    };
+
+    $scope.showEditRow = function (project) {
+    if ($scope.active != project) {
+      $scope.active = project;
+    }
+    else {
+      $scope.active = null;
+    }
+  };
 
   $scope.getAction = function (actionName){
     if(actionName === 'update'){
