@@ -23,6 +23,7 @@ angular.module('myProjectApp')
             if ($scope.currentIndex > -1) {
                 $scope.projects.splice($scope.currentIndex, 1);
             }
+            $scope.projectsTotal = $scope.projects.length;
           },
           function (error) {
               $scope.responseError = error;
