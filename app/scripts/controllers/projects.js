@@ -19,7 +19,7 @@ angular.module('myProjectApp')
       $scope.currentIndex = $scope.projects.indexOf(project);
       ProjectService.removeProject(project.pk)
           .then(
-          function (value) {
+          function () {
             if ($scope.currentIndex > -1) {
                 $scope.projects.splice($scope.currentIndex, 1);
             }
@@ -54,8 +54,8 @@ $scope.listProjects = function (){
     $scope.updateProject = function (project){
       ProjectService.updateProject(project)
       .then(
-        function(value){
-          $scope.projectsTotal = value.length;
+        function(){
+          $scope.projectsTotal = $scope.projects.length;
           $scope.editing = false;
         },
         function(error){
@@ -75,7 +75,7 @@ $scope.listProjects = function (){
 
         ProjectService.addProject(project)
       .then(
-        function(value){
+        function(){
           $scope.projects.push(project);
           $scope.projectsTotal = $scope.projects.length;
           $scope.adding = false;
@@ -87,24 +87,12 @@ $scope.listProjects = function (){
     };
 
     $scope.showEditRow = function (project) {
-    if ($scope.active != project) {
+    if ($scope.active !== project) {
       $scope.active = project;
     }
     else {
       $scope.active = null;
     }
-  };
-
-  $scope.getAction = function (actionName){
-    if(actionName === 'update'){
-
-    }else if(actionName === 'delete'){
-
-
-    }else if(actionName === 'add'){
-
-    }
-
   };
 
 });

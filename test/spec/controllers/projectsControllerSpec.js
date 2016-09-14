@@ -5,7 +5,7 @@
 
 describe("Unit : ProjectsController", function () {
     var scope, ProjectsController, $httpBackend, projectService, deferred, $rootScope, location, deleteDeferred,
-    errorMsg, applicationCacheFactory;
+    errorMsg, applicationCacheFactory,addDeferred, editDeferred;
    var token = "71456dbd15de0c0b6d2b4b44e5a92ad94c6def97";
     var projects = [
         {
@@ -165,6 +165,10 @@ describe("Unit : ProjectsController", function () {
           spyOn(projectService, 'getProjects').and.returnValue(deferred.promise);
           deleteDeferred = $q.defer();
           spyOn(projectService, 'removeProject').and.returnValue(deleteDeferred.promise);
+          addDeferred = $q.defer();
+          spyOn(projectService, 'addProject').and.returnValue(addDeferred.promise);
+          editDeferred = $q.defer();
+          spyOn(projectService, 'updateProject').and.returnValue(editDeferred.promise);
 
           ProjectsController = $controller('ProjectsController', {
             $scope: scope,
@@ -180,9 +184,9 @@ describe("Unit : ProjectsController", function () {
           });
 
           it('should resolve promise', function () {
+              scope.projects = projects;
+              scope.listProjects();
               deferred.resolve(projects);
-              expect(scope).toBeDefined();
-              scope.listProjects(token);
               scope.$apply();
               expect(scope.responseError).toBe(undefined);
           });
@@ -191,10 +195,54 @@ describe("Unit : ProjectsController", function () {
               deferred.reject('error message');
               expect(scope).toBeDefined();
               token = '';
-              scope.listProjects(token);
+              scope.listProjects();
               scope.$apply();
               expect(scope.responseError).toBe('error message');
               expect(scope.authToken).toBeUndefined();
+          });
+      });
+
+      describe('addProjects service', function () {
+          it('should check if the function is defined', function () {
+              expect(scope).toBeDefined();
+              expect(scope.addProject).toBeDefined();
+          });
+
+          it('should resolve promise', function () {
+              scope.projects = projects;
+              scope.addProject(project);
+              addDeferred.resolve(project);
+              scope.$apply();
+              expect(scope.responseError).toBe(undefined);
+          });
+
+          it('should reject promise', function () {
+              addDeferred.reject('error message');
+              scope.addProject('');
+              scope.$apply();
+              expect(scope.responseError).toBe('error message');
+          });
+      });
+
+      describe('editProjects service', function () {
+          it('should check if the function is defined', function () {
+              expect(scope).toBeDefined();
+              expect(scope.updateProject).toBeDefined();
+          });
+
+          it('should resolve promise', function () {
+              scope.projects = projects;
+              scope.updateProject(project);
+              editDeferred.resolve(project);
+              scope.$apply();
+              expect(scope.responseError).toBe(undefined);
+          });
+
+          it('should reject promise', function () {
+              editDeferred.reject('error message');
+              scope.updateProject('');
+              scope.$apply();
+              expect(scope.responseError).toBe('error message');
           });
       });
 

@@ -52,7 +52,7 @@ var authKey = ApplicationCacheFactory.get('authkey');
             "end_date": project.end_date,
             "is_billable": project.is_billable,
             "is_active": project.is_active
-            }
+          };
 
        var request = $http({
          method:"post",
@@ -79,7 +79,7 @@ var authKey = ApplicationCacheFactory.get('authkey');
             "end_date": project.end_date,
             "is_billable": project.is_billable,
             "is_active": project.is_active
-            }
+          };
 
        var request = $http({
          method:"put",
